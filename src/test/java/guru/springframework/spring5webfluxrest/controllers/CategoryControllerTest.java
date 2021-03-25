@@ -91,7 +91,7 @@ public class CategoryControllerTest {
     public void testPatchCategoryWithChange() {
 
         given(categoryRepository.findById(any(String.class)))
-                .willReturn(Mono.just(Category.builder().build()));
+                .willReturn(Mono.just(Category.builder().description("Some Desc found").build()));
 
         given(categoryRepository.save(any(Category.class)))
                 .willReturn(Mono.just(Category.builder().build()));
@@ -112,12 +112,12 @@ public class CategoryControllerTest {
     public void testPatchCategoryWithNoChange() {
 
         given(categoryRepository.findById(any(String.class)))
-                .willReturn(Mono.just(Category.builder().build()));
+                .willReturn(Mono.just(Category.builder().description("Some Desc").build()));
 
         given(categoryRepository.save(any(Category.class)))
                 .willReturn(Mono.just(Category.builder().build()));
 
-        Mono<Category> categoryToUpdate = Mono.just(Category.builder().build());
+        Mono<Category> categoryToUpdate = Mono.just(Category.builder().description("Some Desc").build());
 
         webTestClient.patch()
                 .uri("/api/v1/categories/someId")
